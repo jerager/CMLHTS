@@ -1,0 +1,60 @@
+diffs = [(tokens[i],lemmas[i]) for i in range(len(tokens)) if tokens[i] != lemmas[i]]
+
+
+url = "http://www.gutenberg.org/files/2554/2554-0.txt"
+response = request.urlopen(url)
+raw = response.read().decode('utf8')
+
+
+
+html = "https://app.cs.amherst.edu/~jerager/"       #address of page you want
+page = urllib.request.urlopen(html)		          #url request
+raw = page.read().decode("utf8")		          #get the page
+
+for x in h3s:
+    print(x.text.strip())
+
+
+bigram = nltk.collocations.BigramAssocMeasures()
+trigram = nltk.collocations.TrigramAssocMeasures()
+
+
+file = open("grammars.py")
+contents = file.read()
+exec(contents)
+
+parser =nltk.ChartParser(groucho_grammar)  
+sent = ['I', 'shot', 'an', 'elephant', 'in', 'my', 'pajamas']
+
+
+reader = nltk.corpus.reader.CategorizedPlaintextCorpusReader(
+'./Shakespeare',r'.*', cat_pattern=r'(.*)_.*')
+
+documents = [(list(reader.words(fileid)),category) for category in reader.categories() for fileid in reader.fileids(category)]
+
+
+def features(words):
+    d_words = set(words)
+    features = {}
+    for word in freqWords:
+        features['contains{'+word+'}'] = (word in d_words)
+    return features
+
+
+featureSets = [(features(words),c) for (words,c) in documents]
+featureSets[10]
+
+classifier= nltk.NaiveBayesClassifier.train(training)
+
+nltk.classify.accuracy(classifier,training)
+
+nltk.classify.accuracy(classifier,testing)
+
+
+classifier2 = nltk.DecisionTreeClassifier.train(training)
+
+nltk.classify.accuracy(classifier2,training)
+
+nltk.classify.accuracy(classifier2,testing)
+
+
