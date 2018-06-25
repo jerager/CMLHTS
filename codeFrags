@@ -1,8 +1,9 @@
 diffs = [(tokens[i],lemmas[i]) for i in range(len(tokens)) if tokens[i] != lemmas[i]]
 
 
+import urllib
 url = "http://www.gutenberg.org/files/2554/2554-0.txt"
-response = request.urlopen(url)
+response = urllib.request.urlopen(url)
 raw = response.read().decode('utf8')
 
 
